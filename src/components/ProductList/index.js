@@ -12,7 +12,7 @@ export default function ProductList() {
     const [productByName, setProductByName] = useState([])
 
     async function getList() {
-        const response = await axios.get('http://localhost:9090/product/all-product');
+        const response = await axios.get('https://colonial-product-ordering.herokuapp.com/product/all-product');
         const INITIAL_STATE = response.data
         dispatch({ type: 'LOAD_CONTENT', load: INITIAL_STATE })
     }
