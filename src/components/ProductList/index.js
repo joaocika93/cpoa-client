@@ -1,23 +1,47 @@
-import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import axios from 'axios';
-import SearchResults from 'react-filter-search'
-import { Navbar, FormControl, Card, Container, Col } from 'react-bootstrap'
+import React, { useState, useEffect } from 'react'
+import { Navbar, Container, Col } from 'react-bootstrap'
 import Drawer from '../Drawer';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
+import api from '../../services/api'
+import ProductCard from '../ProductCard'
+import Loading from '../../components/giphy.gif'
+import TextField from '@material-ui/core/TextField';
 
 export default function ProductList() {
-    const productsList = useSelector(state => state.data[0])
-    const dispatch = useDispatch();
-    const [productByName, setProductByName] = useState([])
+    const [product, setProduct] = useState([])
+    const [page, setPage] = useState(0);
+    const [totalProduct, setTotalProduct] = useState([]);
+    const [productPage] = useState(4);
 
-    async function getList() {
-        const response = await axios.get('https://colonial-product-ordering.herokuapp.com/product/all-product');
-        const INITIAL_STATE = response.data
-        dispatch({ type: 'LOAD_CONTENT', load: INITIAL_STATE })
+    useEffect(() => {
+        getList()
+        getAllProduct()
+        //eslint-disable-next-line
+    }, [])
+
+    function getAllProduct() {
+        api.get('/product/getAll').then(response => {
+            setTotalProduct(response.data);
+        })
     }
-    getList()
 
+    function getList() {
+        setTimeout(() => {
+            api.get(`/product/get?page=${page}&size=${productPage}`).then(response => {
+                setProduct([...product, ...response.data.content]);
+                setPage(page + 1)
+            })
+        }, 2000);
+    }
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            console.log('do validate');
+            window.location.href = `buscaProduto/${e.target.value}`
+
+        }
+    }
 
     return (
         <div>
@@ -27,34 +51,31 @@ export default function ProductList() {
                         <Drawer></Drawer>
                     </Col>
                     <Col>
-                        <FormControl type="text" placeholder="Search" className="mr-sm-2" value={productByName} onChange={e => setProductByName(e.target.value)} />
+                        <TextField id="standard-search" type="search" label="Search" onKeyDown={handleKeyDown} />
                     </Col>
                 </Container>
             </Navbar>
-            <br />
-            <SearchResults
-                value={productByName}
-                data={productsList}
-                renderResults={results => (
-                    <div>
-                        <ul>
-                            {results.map(product => (
-                                <div>
-                                    <Card style={{ width: '18rem' }}>
-                                        <Card.Img variant="top" src={product.img} />
-                                        <Card.Body>
-                                            <Card.Title>{product.name}</Card.Title>
-                                            <Card.Text>{product.value}</Card.Text>
-                                            <Card.Text>{product.description}</Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                    <br></br>
-                                </div>
-                            ))}
-                        </ul>
-                    </div>
-                )}
-            />
+            <Container fluid>
+                <Col style={{ textAlign: 'center' }}>
+                    <InfiniteScroll
+                        dataLength={product.length}
+                        next={getList}
+                        hasMore={product.length === totalProduct.length ? false : true}
+                        loader={<img src={Loading} width={80} alt="Loading"></img>}
+                        endMessage={
+                            <p style={{ textAlign: 'center' }}>
+                                <b>Yay! You have seen it all</b>
+                            </p>
+                        }
+                    >
+                        {product.map(dados => <div key={dados.idProduct}> <ProductCard dados={dados} /></div>)}
+                    </InfiniteScroll>
+                </Col>
+                <br />
+            </Container>
         </div>
     )
+
 }
+
+

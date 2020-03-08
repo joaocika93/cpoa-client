@@ -14,6 +14,7 @@ import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import SettingsIcon from '@material-ui/icons/Settings';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles({
     list: {
@@ -27,10 +28,7 @@ const useStyles = makeStyles({
 export default function SwipeableTemporaryDrawer() {
     const classes = useStyles();
     const [state, setState] = React.useState({
-        top: false,
         left: false,
-        bottom: false,
-        right: false,
     });
 
     const toggleDrawer = (side, open) => event => {
@@ -49,33 +47,45 @@ export default function SwipeableTemporaryDrawer() {
             onKeyDown={toggleDrawer(side, false)}
         >
             <List>
-                <ListItem button key="Home">
-                    <ListItemIcon><HomeIcon /></ListItemIcon>
-                    <ListItemText primary="Inicio" />
-                </ListItem>
-                <ListItem button key="ShoppingCart">
-                    <ListItemIcon><ShoppingBasketIcon /></ListItemIcon>
-                    <ListItemText primary="Carrinho" />
-                </ListItem>
-                <ListItem button key="Favorite">
-                    <ListItemIcon><FavoriteIcon /></ListItemIcon>
-                    <ListItemText primary="Favoritos" />
-                </ListItem>
+                <Link href="/">
+                    <ListItem button key="Home" color="inherit">
+                        <ListItemIcon><HomeIcon /></ListItemIcon>
+                        <ListItemText primary="Inicio" />
+                    </ListItem>
+                </Link>
+                <Link href="/carrinho">
+                    <ListItem button key="ShoppingCart">
+                        <ListItemIcon><ShoppingBasketIcon /></ListItemIcon>
+                        <ListItemText primary="Carrinho" />
+                    </ListItem>
+                </Link>
+                <Link href="/favoritos">
+                    <ListItem button key="Favorites">
+                        <ListItemIcon><FavoriteIcon /></ListItemIcon>
+                        <ListItemText primary="Favoritos" />
+                    </ListItem>
+                </Link>
             </List>
             <Divider />
             <List>
-                <ListItem button key="Profile">
-                    <ListItemIcon><AccountCircleIcon /></ListItemIcon>
-                    <ListItemText primary="Perfil" />
-                </ListItem>
-                <ListItem button key="Notification">
-                    <ListItemIcon><NotificationsIcon /></ListItemIcon>
-                    <ListItemText primary="Notificações" />
-                </ListItem>
-                <ListItem button key="Settings">
-                    <ListItemIcon><SettingsIcon /></ListItemIcon>
-                    <ListItemText primary="Configurações" />
-                </ListItem>
+                <Link href="/perfil">
+                    <ListItem button key="Profile">
+                        <ListItemIcon><AccountCircleIcon /></ListItemIcon>
+                        <ListItemText primary="Perfil" />
+                    </ListItem>
+                </Link>
+                <Link href="/notificacao">
+                    <ListItem button key="Notification">
+                        <ListItemIcon><NotificationsIcon /></ListItemIcon>
+                        <ListItemText primary="Notificações" />
+                    </ListItem>
+                </Link>
+                <Link href="/configuracao">
+                    <ListItem button key="Settings">
+                        <ListItemIcon><SettingsIcon /></ListItemIcon>
+                        <ListItemText primary="Configurações" />
+                    </ListItem>
+                </Link>
             </List>
         </div>
     );
