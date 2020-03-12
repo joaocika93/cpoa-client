@@ -8,7 +8,7 @@ export default function ProductPage({ match }) {
     const [productSelect, setProductSelect] = useState([])
 
     async function getProduct() {
-        const response = await api.get(`/product/get/${match.params.idProduct}`)
+        const response = await api.get(`/produtos/get/${match.params.idProduct}`)
         setProductSelect(response.data);
     }
     getProduct();
@@ -32,11 +32,11 @@ export default function ProductPage({ match }) {
                 </Container>
             </Navbar>
             <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" src={productSelect.img} />
+                <Card.Img variant="top" src={productSelect.imagem} />
                 <Card.Body>
-                    <Card.Title>{productSelect.name}</Card.Title>
-                    <Card.Text>{productSelect.value}</Card.Text>
-                    <Card.Text>{productSelect.description}</Card.Text>
+                    <Card.Title>{productSelect.nome}</Card.Title>
+                    <Card.Text>{productSelect.preco}</Card.Text>
+                    <Card.Text>{productSelect.descricao}</Card.Text>
                 </Card.Body>
                 <Button variant="outlined" color="primary" onClick={() => addCart(productSelect)}>Adcionar ao Carrinho</Button>
                 <Button href='/carrinho' variant="contained" color="primary">Encomendar</Button>

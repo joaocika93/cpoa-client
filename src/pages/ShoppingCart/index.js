@@ -12,10 +12,12 @@ export default function ShoppingCart() {
     }, [])
 
     async function getList() {
-        const response = await api.get('/cart/get');
+        const response = await api.get('/pedidos/get');
         setProduct(response.data)
     }
-    
+
+    console.log(product.itens)
+
 
     return (
         <>
@@ -28,7 +30,10 @@ export default function ShoppingCart() {
             </Navbar>
             <Container fluid>
                 <Col style={{ textAlign: 'center' }}>
-                    {product.map(product => <div key={product.idProduct}> <ProductCard dados={product} /> </div>)}
+                    {product.map(product =>
+                        <div key={product.id}> {product.itens.map(itens =>
+                            <div key={itens.id}> <ProductCard dados={itens.produto} /></div>)}
+                        </div>)}
                 </Col>
             </Container>
         </>

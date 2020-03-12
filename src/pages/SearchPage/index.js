@@ -14,7 +14,7 @@ export default function SearchPage({ match }) {
 
     async function getAllProduct() {
         try {
-            const response = await api.get('/product/getAll')
+            const response = await api.get('/produtos/getAll')
             setSearchProduct(response.data)
         } catch (e) {
             console.log("erro")
@@ -36,7 +36,7 @@ export default function SearchPage({ match }) {
                 data={searchProduct}
                 renderResults={results => (
                     <>
-                        {results.map(product => <div key={product.idProduct}> <ProductCard dados={product} /> </div>)}
+                        {results.map(product => <div key={product.id}> <ProductCard dados={product} /> </div>)}
                     </>
 
                 )}

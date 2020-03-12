@@ -21,14 +21,15 @@ export default function ProductList() {
     }, [])
 
     function getAllProduct() {
-        api.get('/product/getAll').then(response => {
+        api.get('/produtos/getAll').then(response => {
             setTotalProduct(response.data);
+            console.log(response.data)
         })
     }
 
     function getList() {
         setTimeout(() => {
-            api.get(`/product/get?page=${page}&size=${productPage}`).then(response => {
+            api.get(`/produtos/get?page=${page}&size=${productPage}`).then(response => {
                 setProduct([...product, ...response.data.content]);
                 setPage(page + 1)
             })
@@ -68,7 +69,7 @@ export default function ProductList() {
                             </p>
                         }
                     >
-                        {product.map(dados => <div key={dados.idProduct}> <ProductCard dados={dados} /></div>)}
+                        {product.map(dados => <div key={dados.id}> <ProductCard dados={dados} /></div>)}
                     </InfiniteScroll>
                 </Col>
                 <br />

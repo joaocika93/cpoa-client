@@ -7,12 +7,13 @@ import api from '../../services/api'
 
 export default function ProductCard(product) {
     function addCart(product) {
-        api.post('/cart/add', {
-            name: product.name,
-            value: product.value,
-            description: product.description,
-            img: product.img,
-            favorite: product.favorite
+        api.post('/itempedido/add', {
+            desconto: 0,
+            quantidade: 1,
+            preco: product.preco,
+            produto: {
+                id:product.id
+            }
         }).then(response => {
             console.log('Salvo com Sucess')
         })
@@ -20,12 +21,12 @@ export default function ProductCard(product) {
     return (
         <div>
             <Card >
-                <Link href={`produto/${product.dados.idProduct}`}>
-                    <Card.Img variant="top" src={product.dados.img} />
+                <Link href={`produto/${product.dados.id}`}>
+                    <Card.Img variant="top" src={product.dados.imagem} />
                     <Card.Body>
-                        <Card.Title>{product.dados.name}</Card.Title>
-                        <Card.Text>{product.dados.value}</Card.Text>
-                        <Card.Text>{product.dados.description}</Card.Text>
+                        <Card.Title>{product.dados.nome}</Card.Title>
+                        <Card.Text>{product.dados.preco}</Card.Text>
+                        <Card.Text>{product.dados.descricao}</Card.Text>
                     </Card.Body>
                 </Link>
                 <Button variant="outlined" color="primary" onClick={() => addCart(product.dados)}>Adcionar ao Carrinho</Button>
