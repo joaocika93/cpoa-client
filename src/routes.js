@@ -9,11 +9,13 @@ import Profile from './pages/Profile';
 import Settings from './pages/Settings';
 import ProductPage from './pages/ProductPage'
 import SearchPage from './pages/SearchPage';
+import LoginPage from './pages/LoginPage'
 
 function Routes() {
     return (
         <BrowserRouter>
-            <Route path="/" exact component={Home}></Route>
+            <Route path="/" exact component={LoginPage}></Route>
+            <Route path="/home/:id" component={Home}></Route>
             <Route path="/carrinho" component={Cart}></Route>
             <Route path="/favoritos" component={Favorites}></Route>
             <Route path="/perfil" component={Profile}></Route>

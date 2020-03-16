@@ -1,19 +1,18 @@
 import { createStore } from 'redux'
 
 const INITIAL_STATE = {
-    data: [[]],
+    data: [],
 }
-function list(state = INITIAL_STATE, action) {
-    switch (action.type) {
-        case 'LOAD_CONTENT':
-            //console.log(action.load)
-            return {...state, data: [action.load]};
+
+function user(state = INITIAL_STATE, action){
+    switch(action.type){
+        case 'LOAD_USER':
+            return {...state, data:[...state.data, action.user]}
         default:
-            return state;
     }
 }
 
-const store = createStore(list)
+const store = createStore(user)
 
 export default store
 

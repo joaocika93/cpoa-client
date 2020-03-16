@@ -47,7 +47,7 @@ export default function SwipeableTemporaryDrawer() {
             onKeyDown={toggleDrawer(side, false)}
         >
             <List>
-                <Link href="/">
+                <Link href="/home">
                     <ListItem button key="Home" color="inherit">
                         <ListItemIcon><HomeIcon /></ListItemIcon>
                         <ListItemText primary="Inicio" />

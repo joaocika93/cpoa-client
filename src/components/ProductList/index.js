@@ -7,12 +7,14 @@ import api from '../../services/api'
 import ProductCard from '../ProductCard'
 import Loading from '../../components/giphy.gif'
 import TextField from '@material-ui/core/TextField';
+import { useSelector } from 'react-redux'
 
 export default function ProductList() {
     const [product, setProduct] = useState([])
     const [page, setPage] = useState(0);
     const [totalProduct, setTotalProduct] = useState([]);
     const [productPage] = useState(4);
+    const loggedUser = useSelector(state => state)
 
     useEffect(() => {
         getList()
@@ -23,7 +25,6 @@ export default function ProductList() {
     function getAllProduct() {
         api.get('/produtos/getAll').then(response => {
             setTotalProduct(response.data);
-            console.log(response.data)
         })
     }
 
@@ -78,5 +79,6 @@ export default function ProductList() {
     )
 
 }
+
 
 
