@@ -103,7 +103,7 @@ export default function LoginPage({ history }) {
                             </Grid>
                             <Grid item>
                                 <GoogleLogin
-                                    clientId="911159398692-c3n1ckm3l206qqfkpp73lj5tmvmsc7os.apps.googleusercontent.com"
+                                    clientId="911159398692-t8f5eipkjei3u5ag4040rmecrmb2k9f6.apps.googleusercontent.com"
                                     buttonText="Entre com o Google"
                                     onSuccess={responseGoogle}
                                     onFailure={responseGoogle}
