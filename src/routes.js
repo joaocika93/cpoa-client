@@ -17,7 +17,7 @@ import Policy from './pages/PrivacyPolicy'
 function Routes() {
     return (
         <BrowserRouter>
-            <Route path="/loginPage" exact component={LoginPage}></Route>
+            <Route path="/" exact component={LoginPage}></Route>
             <Route path="/policy" exact component={Policy}></Route>
             <Route path="/home/:id" component={Home}></Route>
             <Route path="/carrinho" component={Cart}></Route>
