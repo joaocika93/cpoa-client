@@ -10,6 +10,7 @@ import Settings from './pages/Settings';
 import ProductPage from './pages/ProductPage'
 import SearchPage from './pages/SearchPage';
 import LoginPage from './pages/LoginPage'
+import Googleflow from './pages/GoogleFlowLogin'
 
 function Routes() {
     return (
@@ -23,6 +24,7 @@ function Routes() {
             <Route path="/configuracao" component={Settings}></Route>
             <Route path="/produto/:idProduct" component={ProductPage}></Route>
             <Route path="/buscaProduto/:busca" component={SearchPage}></Route>
+            <Route path="/googleflow/:tokenId" component={Googleflow}></Route>
         </BrowserRouter>
     );
 }

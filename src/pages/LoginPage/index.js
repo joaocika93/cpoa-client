@@ -1,10 +1,28 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import GoogleLogin from 'react-google-login'
-import { Container, Card, TextField, Button, Grid } from '@material-ui/core'
+import { Container, Button, ButtonGroup } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import api from '../../services/api'
+import { useDispatch } from 'react-redux'
+import imagem from '../../image/background.jpg'
+import { isMobile, isBrowser } from 'react-device-detect'
+import SmsIcon from '@material-ui/icons/Sms';
 
 const useStyles = makeStyles(theme => ({
+    page: {
+        backgroundImage: `url(${imagem})`,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: "scroll",
+        position: "fixed",
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        content: "",
+        zIndex: 0,
+
+    },
     root: {
         display: "flex",
         justifyContent: "center",
@@ -12,114 +30,89 @@ const useStyles = makeStyles(theme => ({
         flexDirection: "column",
         boxSizing: "border-box",
         width: "20em",
-        marginTop: "8em",
-        height: "20em"
-
+        marginRight: "1em",
+        height: "20em",
     },
-    card: {
+    rootMobile: {
         display: "flex",
         justifyContent: "center",
+        alignItems: "center",
         flexDirection: "column",
         boxSizing: "border-box",
         width: "20em",
-        height: "20em"
+        height: "20em",
     },
-    container: {
-        display: "flex",
-        justifyContent: "center",
-        flexDirection: "column",
-        boxSizing: "border-box",
-
-    },
-    google: {
-        height: "3em"
+    button: {
+        display: 'flex',
+        '& > *': {
+            margin: theme.spacing(2),
+        },
     }
 }))
 
 export default function LoginPage({ history }) {
     const classes = useStyles()
-    const [user, setUser] = useState('')
-    const [password, setPassword] = useState('')
     const [message, setMessage] = useState('')
-
-    async function dataApi() {
-        const response = await api.get(`/clientes/buscar/${user}`)
-        console.log(response.data.usuario)
-        if ((response.data.usuario === user) && (response.data.senha === password)) {
-            response.data.logado = true
-            history.push(`/home/${response.data.id}`)
-            return setMessage("Login com Sucesso!")
-        } else {
-            return setMessage("Usuario ou senha errados!")
-        }
-    }
+    const dispatch = useDispatch();
 
     const responseGoogle = (response) => {
-        console.log(response)
-        async function addClient() {
-            await api.post("/clientes/add",
-                {
-                    googleId: response.profileObj.googleId,
-                    nome: response.profileObj.name,
-                    email: response.profileObj.email,
-                    imagem: response.profileObj.imageUrl,
-                    enderecos: [
-                        {
-                            id: 1,
-
-                        }
-                    ],
-                }
-            )
-        }
-        addClient()
+        dispatch({ type: 'LOAD_USER', user: response.profileObj })
+        history.push(`/googleflow/${response.profileObj.googleId}`)
     }
 
+    const responseGoogleFailure = () => {
+        setMessage('Login Failed')
+    }
 
-    return (
-        <>
-            <Container className={classes.root}>
-                <Card className={classes.card}>
-                    <Container className={classes.container}>
-                        <TextField
-                            id="standard-basic"
-                            label="User"
-                            value={user}
-                            variant="outlined"
-                            onChange={e => setUser(e.target.value)}
-                        />
-                        <br></br>
-                        <TextField
-                            id="standard-basic"
-                            label="Password"
-                            value={password}
-                            variant="outlined"
-                            onChange={e => setPassword(e.target.value)}
-                        />
-                        <br></br>
-                        <Grid container spacing={1}>
-                            <Grid item>
-                                <Button className={classes.google} variant="contained" color="primary" type="submit" onClick={dataApi}>Login</Button>
-                            </Grid>
-                            <Grid item>
-                                <GoogleLogin
-                                    clientId="911159398692-t8f5eipkjei3u5ag4040rmecrmb2k9f6.apps.googleusercontent.com"
-                                    buttonText="Entre com o Google"
-                                    onSuccess={responseGoogle}
-                                    onFailure={responseGoogle}
-                                    cookiePolicy={'single_host_origin'}
-                                    className={classes.google}>
-                                </GoogleLogin>
-                            </Grid>
-                        </Grid>
-                        <Grid container>
-                            <Grid item className={classes.container}>
-                                <p>{message}</p>
-                            </Grid>
-                        </Grid>
+    const renderContent = () => {
+        if (isMobile) {
+            return (
+                <div className={classes.page}>
+                    <Container className={classes.rootMobile}>
+                        <ButtonGroup className={classes.button} orientation="vertical">
+                            <GoogleLogin
+                                clientId="911159398692-t8f5eipkjei3u5ag4040rmecrmb2k9f6.apps.googleusercontent.com"
+                                render={renderProps => (
+                                    <Button startIcon={<i className="devicon-google-plain"></i>} variant="contained" color="secondary" onClick={renderProps.onClick} disabled={renderProps.disabled}>Login com o Google</Button>
+                                )}
+                                buttonText="Entre com o Google"
+                                onSuccess={responseGoogle}
+                                onFailure={responseGoogleFailure}
+                                cookiePolicy={'single_host_origin'}
+                            >
+                            </GoogleLogin>
+                            <Button startIcon={<i className="devicon-facebook-plain"></i>} variant="contained" color="primary">Login com Facebook</Button>
+                            <Button startIcon={<SmsIcon />} variant="contained" color="default">Login com Telefone</Button>
+                        </ButtonGroup>
+                        <p>{message}</p>
                     </Container>
-                </Card>
-            </Container>
-        </>
-    )
+                </div>
+            )
+        } else if (isBrowser) {
+            return (
+                <div className={classes.page}>
+                    <Container className={classes.root}>
+                        <ButtonGroup className={classes.button} orientation="vertical" >
+                            <GoogleLogin
+                                clientId="911159398692-t8f5eipkjei3u5ag4040rmecrmb2k9f6.apps.googleusercontent.com"
+                                render={renderProps => (
+                                    <Button startIcon={<i className="devicon-google-plain"></i>} variant="contained" color="secondary" onClick={renderProps.onClick} disabled={renderProps.disabled}>Login com o Google</Button>
+                                )}
+                                buttonText="Entre com o Google"
+                                onSuccess={responseGoogle}
+                                onFailure={responseGoogleFailure}
+                                cookiePolicy={'single_host_origin'}
+                            >
+                            </GoogleLogin>
+                            <Button startIcon={<i className="devicon-facebook-plain"></i>} variant="contained" color="primary">Login com Facebook</Button>
+                            <Button startIcon={<SmsIcon />} variant="contained" color="default">Login com Telefone</Button>
+                        </ButtonGroup>
+                        <p>{message}</p>
+                    </Container>
+                </div>
+
+            )
+        }
+    }
+    return renderContent()
 }

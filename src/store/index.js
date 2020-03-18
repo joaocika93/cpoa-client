@@ -1,13 +1,12 @@
 import { createStore } from 'redux'
 
 const INITIAL_STATE = {
-    data: [],
 }
 
 function user(state = INITIAL_STATE, action){
     switch(action.type){
         case 'LOAD_USER':
-            return {...state, data:[...state.data, action.user]}
+            return Object.assign(state, action.user)
         default:
     }
 }

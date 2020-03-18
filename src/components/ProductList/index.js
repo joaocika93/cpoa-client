@@ -15,6 +15,7 @@ export default function ProductList() {
     const [totalProduct, setTotalProduct] = useState([]);
     const [productPage] = useState(4);
     const loggedUser = useSelector(state => state)
+    console.log(loggedUser)
 
     useEffect(() => {
         getList()
