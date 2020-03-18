@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import GoogleLogin from 'react-google-login'
-import { Container, Button, ButtonGroup } from '@material-ui/core'
+import { Container, Button, ButtonGroup, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useDispatch } from 'react-redux'
 import imagem from '../../image/background.jpg'
 import { isMobile, isBrowser } from 'react-device-detect'
-import SmsIcon from '@material-ui/icons/Sms';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 
 const useStyles = makeStyles(theme => ({
@@ -30,9 +29,7 @@ const useStyles = makeStyles(theme => ({
         alignItems: "center",
         flexDirection: "column",
         boxSizing: "border-box",
-        width: "20em",
-        marginRight: "1em",
-        height: "20em",
+        marginLeft: "20%"
     },
     rootMobile: {
         display: "flex",
@@ -40,14 +37,16 @@ const useStyles = makeStyles(theme => ({
         alignItems: "center",
         flexDirection: "column",
         boxSizing: "border-box",
-        width: "20em",
-        height: "20em",
+        marginLeft: "15%"
     },
     button: {
         display: 'flex',
         '& > *': {
             margin: theme.spacing(2),
         },
+    },
+    sizeButton: {
+        width: "13em"
     }
 }))
 
@@ -71,12 +70,6 @@ export default function LoginPage({ history }) {
         history.push(`/facebookflow/${response.id}`)
     }
 
-    console.log(window.location)
-
-    const responseFacebookFeilure = () => {
-        setMessage('Login Failed')
-    }
-
     const renderContent = () => {
         if (isMobile) {
             return (
@@ -84,29 +77,33 @@ export default function LoginPage({ history }) {
 
                     <Container className={classes.rootMobile}>
                         <ButtonGroup className={classes.button} orientation="vertical">
-                            <GoogleLogin
-                                clientId="911159398692-t8f5eipkjei3u5ag4040rmecrmb2k9f6.apps.googleusercontent.com"
-                                render={renderProps => (
-                                    <Button startIcon={<i className="devicon-google-plain"></i>} variant="contained" color="secondary" onClick={renderProps.onClick} disabled={renderProps.disabled}>Login com o Google</Button>
-                                )}
-                                buttonText="Entre com o Google"
-                                onSuccess={responseGoogle}
-                                onFailure={responseGoogleFailure}
-                                cookiePolicy={'single_host_origin'}
-                            >
-                            </GoogleLogin>
-                            <FacebookLogin
-                                appId="223215205718112"
-                                fields="name, email, picture"
-                                callback={responseFacebook}
-                                render={renderProps => (
-                                    <Button startIcon={<i className="devicon-facebook-plain"></i>} variant="contained" color="primary" onClick={renderProps.onClick} disabled={renderProps.disabled}>Login com o Google</Button>
-                                )}
-                                scope="public_profile"
-                            />
-                            <Button startIcon={<SmsIcon />} variant="contained" color="default">Login com Telefone</Button>
+                            <Grid container alignItems="center" alignContent="center" spacing={1}>
+                                <Grid item className={classes.sizeButton}>
+                                    <GoogleLogin
+                                        clientId="911159398692-t8f5eipkjei3u5ag4040rmecrmb2k9f6.apps.googleusercontent.com"
+                                        render={renderProps => (
+                                            <Button startIcon={<i className="devicon-google-plain"></i>} variant="contained" color="secondary" onClick={renderProps.onClick} >Login com o Google</Button>
+                                        )}
+                                        buttonText="Entre com o Google"
+                                        onSuccess={responseGoogle}
+                                        onFailure={responseGoogleFailure}
+                                        cookiePolicy={'single_host_origin'}
+                                    >
+                                    </GoogleLogin>
+                                </Grid>
+                                <Grid item className={classes.sizeButton}>
+                                    <FacebookLogin
+                                        appId="223215205718112"
+                                        fields="name, email, picture"
+                                        callback={responseFacebook}
+                                        render={renderProps => (
+                                            <Button startIcon={<i className="devicon-facebook-plain"></i>} variant="contained" color="primary" onClick={renderProps.onClick} >Login com o Facebook</Button>
+                                        )}
+                                        scope="public_profile"
+                                    />
+                                </Grid>
+                            </Grid>
                         </ButtonGroup>
-                        <p>{message}</p>
                     </Container>
                 </div>
             )
@@ -114,30 +111,35 @@ export default function LoginPage({ history }) {
             return (
                 <div className={classes.page}>
                     <Container className={classes.root}>
-                        <ButtonGroup className={classes.button} orientation="vertical" >
-                            <GoogleLogin
-                                clientId="911159398692-t8f5eipkjei3u5ag4040rmecrmb2k9f6.apps.googleusercontent.com"
-                                render={renderProps => (
-                                    <Button startIcon={<i className="devicon-google-plain"></i>} variant="contained" color="secondary" onClick={renderProps.onClick} disabled={renderProps.disabled}>Login com o Google</Button>
-                                )}
-                                buttonText="Entre com o Google"
-                                onSuccess={responseGoogle}
-                                onFailure={responseGoogleFailure}
-                                cookiePolicy={'single_host_origin'}
-                            >
-                            </GoogleLogin>
-                            <FacebookLogin
-                                appId="223215205718112"
-                                fields="name, email, picture"
-                                callback={responseFacebook}
-                                render={renderProps => (
-                                    <Button startIcon={<i className="devicon-facebook-plain"></i>} variant="contained" color="primary" onClick={renderProps.onClick} disabled={renderProps.disabled}>Login com o Google</Button>
-                                )}
-                                scope="public_profile"
-                            />
-                            <Button startIcon={<SmsIcon />} variant="contained" color="default">Login com Telefone</Button>
+                        <ButtonGroup className={classes.button} orientation="vertical">
+                            <Grid container alignItems="center" alignContent="center" spacing={1}>
+                                <Grid item className={classes.sizeButton}>
+                                    <GoogleLogin
+
+                                        clientId="911159398692-t8f5eipkjei3u5ag4040rmecrmb2k9f6.apps.googleusercontent.com"
+                                        render={renderProps => (
+                                            <Button startIcon={<i className="devicon-google-plain"></i>} variant="contained" color="secondary" onClick={renderProps.onClick} >Login com o Google</Button>
+                                        )}
+                                        buttonText="Entre com o Google"
+                                        onSuccess={responseGoogle}
+                                        onFailure={responseGoogleFailure}
+                                        cookiePolicy={'single_host_origin'}
+                                    >
+                                    </GoogleLogin>
+                                </Grid>
+                                <Grid item item className={classes.sizeButton}>
+                                    <FacebookLogin
+                                        appId="223215205718112"
+                                        fields="name, email, picture"
+                                        callback={responseFacebook}
+                                        render={renderProps => (
+                                            <Button startIcon={<i className="devicon-facebook-plain"></i>} variant="contained" color="primary" onClick={renderProps.onClick} >Login com o Facebook</Button>
+                                        )}
+                                        scope="public_profile"
+                                    />
+                                </Grid>
+                            </Grid>
                         </ButtonGroup>
-                        <p>{message}</p>
                     </Container>
                 </div>
 
