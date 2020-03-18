@@ -71,6 +71,7 @@ export default function LoginPage({ history }) {
         history.push(`/facebookflow/${response.id}`)
     }
 
+    console.log(window.location)
 
     const responseFacebookFeilure = () => {
         setMessage('Login Failed')
