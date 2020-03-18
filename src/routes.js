@@ -11,6 +11,7 @@ import ProductPage from './pages/ProductPage'
 import SearchPage from './pages/SearchPage';
 import LoginPage from './pages/LoginPage'
 import Googleflow from './pages/GoogleFlowLogin'
+import Facebookflow from './pages/FacebookFlowLogin'
 import Policy from './pages/PrivacyPolicy'
 
 function Routes() {
@@ -27,6 +28,7 @@ function Routes() {
             <Route path="/produto/:idProduct" component={ProductPage}></Route>
             <Route path="/buscaProduto/:busca" component={SearchPage}></Route>
             <Route path="/googleflow/:tokenId" component={Googleflow}></Route>
+            <Route path="/facebookflow/:accessToken" component={Facebookflow}></Route>
         </BrowserRouter>
     );
 }

@@ -66,8 +66,14 @@ export default function LoginPage({ history }) {
     }
 
     const responseFacebook = (response) => {
-        console.log("entrei")
-        console.log(response);
+        console.log(response)
+        dispatch({ type: 'LOAD_USER', user: response })
+        history.push(`/facebookflow/${response.id}`)
+    }
+
+
+    const responseFacebookFeilure = () => {
+        setMessage('Login Failed')
     }
 
     const renderContent = () => {
@@ -90,7 +96,6 @@ export default function LoginPage({ history }) {
                             </GoogleLogin>
                             <FacebookLogin
                                 appId="223215205718112"
-                                autoLoad
                                 fields="name, email, picture"
                                 callback={responseFacebook}
                                 render={renderProps => (
@@ -122,7 +127,6 @@ export default function LoginPage({ history }) {
                             </GoogleLogin>
                             <FacebookLogin
                                 appId="223215205718112"
-                                autoLoad
                                 fields="name, email, picture"
                                 callback={responseFacebook}
                                 render={renderProps => (
