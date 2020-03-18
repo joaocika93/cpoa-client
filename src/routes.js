@@ -11,11 +11,13 @@ import ProductPage from './pages/ProductPage'
 import SearchPage from './pages/SearchPage';
 import LoginPage from './pages/LoginPage'
 import Googleflow from './pages/GoogleFlowLogin'
+import Policy from './pages/PrivacyPolicy'
 
 function Routes() {
     return (
         <BrowserRouter>
             <Route path="/" exact component={LoginPage}></Route>
+            <Route path="/policy" exact component={Policy}></Route>
             <Route path="/home/:id" component={Home}></Route>
             <Route path="/carrinho" component={Cart}></Route>
             <Route path="/favoritos" component={Favorites}></Route>

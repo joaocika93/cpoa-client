@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 import imagem from '../../image/background.jpg'
 import { isMobile, isBrowser } from 'react-device-detect'
 import SmsIcon from '@material-ui/icons/Sms';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 
 const useStyles = makeStyles(theme => ({
     page: {
@@ -57,17 +58,23 @@ export default function LoginPage({ history }) {
 
     const responseGoogle = (response) => {
         dispatch({ type: 'LOAD_USER', user: response.profileObj })
-        history.push(`/googleflow/${response.profileObj.googleId}`)
+        history.push(`/googleflow/${response.tokenId}`)
     }
 
     const responseGoogleFailure = () => {
         setMessage('Login Failed')
     }
 
+    const responseFacebook = (response) => {
+        console.log("entrei")
+        console.log(response);
+    }
+
     const renderContent = () => {
         if (isMobile) {
             return (
                 <div className={classes.page}>
+
                     <Container className={classes.rootMobile}>
                         <ButtonGroup className={classes.button} orientation="vertical">
                             <GoogleLogin
@@ -81,7 +88,16 @@ export default function LoginPage({ history }) {
                                 cookiePolicy={'single_host_origin'}
                             >
                             </GoogleLogin>
-                            <Button startIcon={<i className="devicon-facebook-plain"></i>} variant="contained" color="primary">Login com Facebook</Button>
+                            <FacebookLogin
+                                appId="223215205718112"
+                                autoLoad
+                                fields="name, email, picture"
+                                callback={responseFacebook}
+                                render={renderProps => (
+                                    <Button startIcon={<i className="devicon-facebook-plain"></i>} variant="contained" color="primary" onClick={renderProps.onClick} disabled={renderProps.disabled}>Login com o Google</Button>
+                                )}
+                                scope="public_profile"
+                            />
                             <Button startIcon={<SmsIcon />} variant="contained" color="default">Login com Telefone</Button>
                         </ButtonGroup>
                         <p>{message}</p>
@@ -104,7 +120,16 @@ export default function LoginPage({ history }) {
                                 cookiePolicy={'single_host_origin'}
                             >
                             </GoogleLogin>
-                            <Button startIcon={<i className="devicon-facebook-plain"></i>} variant="contained" color="primary">Login com Facebook</Button>
+                            <FacebookLogin
+                                appId="223215205718112"
+                                autoLoad
+                                fields="name, email, picture"
+                                callback={responseFacebook}
+                                render={renderProps => (
+                                    <Button startIcon={<i className="devicon-facebook-plain"></i>} variant="contained" color="primary" onClick={renderProps.onClick} disabled={renderProps.disabled}>Login com o Google</Button>
+                                )}
+                                scope="public_profile"
+                            />
                             <Button startIcon={<SmsIcon />} variant="contained" color="default">Login com Telefone</Button>
                         </ButtonGroup>
                         <p>{message}</p>

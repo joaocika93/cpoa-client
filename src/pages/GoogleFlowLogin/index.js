@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Card, TextField, Container, List, ListItem, Divider, ListItemText, ListItemAvatar, Avatar, Typography } from '@material-ui/core'
+import { useSelector } from 'react-redux'
+import {
+    Card, TextField, Container, List, ListItem,
+    Divider, ListItemText, ListItemAvatar, Avatar,
+    Typography, AppBar, Toolbar, IconButton, Button
+} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import api from 'axios'
 import HomeIcon from '@material-ui/icons/Home';
@@ -8,7 +13,9 @@ import PhoneIcon from '@material-ui/icons/Phone';
 import PersonIcon from '@material-ui/icons/Person';
 import EmailIcon from '@material-ui/icons/Email';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
-import { useSelector } from 'react-redux'
+import InfoIcon from '@material-ui/icons/Info';
+import validator from 'validator'
+
 
 const useStyles = makeStyles(theme => ({
     page: {
@@ -66,6 +73,11 @@ export default function GoogleFlow() {
     const [error, setError] = useState(true)
     const logged = useSelector(state => state)
 
+    const validatePhoneNumber = (phone) => {
+        const isValidPhoneNumber = validator.isMobilePhone(phone, 'pt-BR')
+        return (isValidPhoneNumber)
+    }
+
     useEffect(() => {
         load()
     }, [cep])
@@ -98,15 +110,43 @@ export default function GoogleFlow() {
         }
     }
 
+    const handleOnClickSalveContact = () => {
+        console.log("entrou")
+        window.location.reload()
+        if(number === null || phone === null || cpf === null){
+            console.log("Preencha todos os campos")
+        }
+    }
+
     return (
         <div className={classes.page}>
             <Container className={classes.root}>
                 {error === true ?
                     <>
+                        <AppBar color="secondary">
+                            <Toolbar >
+                                <IconButton edge="start" color="inherit">
+                                    <InfoIcon />
+                                </IconButton>
+                                <Typography variant="h6">
+                                    Informe o CEP
+                                </Typography>
+                            </Toolbar>
+                        </AppBar>
                         <TextField onKeyDown={handleKeyDown} id="filled-required" label="Digite seu CEP..." variant="filled" helperText={message} />
                     </>
                     :
                     <>
+                        <AppBar color="secondary">
+                            <Toolbar >
+                                <IconButton edge="start" color="inherit">
+                                    <InfoIcon />
+                                </IconButton>
+                                <Typography variant="h6">
+                                    Finalizar cadastro
+                                </Typography>
+                            </Toolbar>
+                        </AppBar>
                         <Card className={classes.cardCep}>
                             <List>
                                 <ListItem alignItems="flex-start">
@@ -174,7 +214,6 @@ export default function GoogleFlow() {
                                         <TextField
                                             id="standard-number"
                                             label="Phone Number"
-                                            type="number"
                                             InputLabelProps={{
                                                 shrink: true,
                                             }}
@@ -205,6 +244,8 @@ export default function GoogleFlow() {
                                 </ListItem>
                             </List>
                         </Card>
+                        <br></br>
+                        <Button onClick={handleOnClickSalveContact} color='secondary' variant="contained">Salvar</Button>
                     </>}
             </Container>
         </div>
