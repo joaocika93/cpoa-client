@@ -7,7 +7,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 
 function App() {
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: light)');
 
   const theme = useMemo(
     () =>

@@ -7,6 +7,8 @@ function user(state = INITIAL_STATE, action){
     switch(action.type){
         case 'LOAD_USER':
             return Object.assign(state, action.user)
+        case 'ADD_INFORMATION':
+            return Object.assign(state, action.user)
         default:
     }
 }

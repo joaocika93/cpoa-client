@@ -14,7 +14,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import EmailIcon from '@material-ui/icons/Email';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import InfoIcon from '@material-ui/icons/Info';
-import validator from 'validator'
+// import validator from 'validator'
 
 
 const useStyles = makeStyles(theme => ({
@@ -73,13 +73,14 @@ export default function GoogleFlow() {
     const [error, setError] = useState(true)
     const logged = useSelector(state => state)
 
-    const validatePhoneNumber = (phone) => {
-        const isValidPhoneNumber = validator.isMobilePhone(phone, 'pt-BR')
-        return (isValidPhoneNumber)
-    }
+    // const validatePhoneNumber = (phone) => {
+    //     const isValidPhoneNumber = validator.isMobilePhone(phone, 'pt-BR')
+    //     return (isValidPhoneNumber)
+    // }
 
     useEffect(() => {
         load()
+        //eslint-disable-next-line
     }, [cep])
 
     function load() {

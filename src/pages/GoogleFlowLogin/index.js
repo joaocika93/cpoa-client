@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import {
     Card, TextField, Container, List, ListItem,
     Divider, ListItemText, ListItemAvatar, Avatar,
@@ -14,7 +14,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import EmailIcon from '@material-ui/icons/Email';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import InfoIcon from '@material-ui/icons/Info';
-import validator from 'validator'
+// import validator from 'validator'
 
 
 const useStyles = makeStyles(theme => ({
@@ -62,7 +62,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-export default function GoogleFlow() {
+export default function GoogleFlow({match, history}) {
     const classes = useStyles()
     const [cep, setCep] = useState('')
     const [message, setMessage] = useState('')
@@ -72,14 +72,16 @@ export default function GoogleFlow() {
     const [address, setAddress] = useState([])
     const [error, setError] = useState(true)
     const logged = useSelector(state => state)
+    const dispatch = useDispatch()
 
-    const validatePhoneNumber = (phone) => {
-        const isValidPhoneNumber = validator.isMobilePhone(phone, 'pt-BR')
-        return (isValidPhoneNumber)
-    }
+    // const validatePhoneNumber = (phone) => {
+    //     const isValidPhoneNumber = validator.isMobilePhone(phone, 'pt-BR')
+    //     return (isValidPhoneNumber)
+    // }
 
     useEffect(() => {
         load()
+        //eslint-disable-next-line
     }, [cep])
 
     function load() {
@@ -102,8 +104,6 @@ export default function GoogleFlow() {
 
     }
 
-    console.log(logged)
-
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             setCep(e.target.value)
@@ -112,9 +112,42 @@ export default function GoogleFlow() {
 
     const handleOnClickSalveContact = () => {
         console.log("entrou")
-        window.location.reload()
-        if(number === null || phone === null || cpf === null){
+        if (number === "" || phone === "" || cpf === "") {
             console.log("Preencha todos os campos")
+        } else {
+            const data = {
+                phoneNumber: phone,
+                HomeNumber: number,
+                cpfNumber: cpf
+
+            }
+            dispatch({ type: 'ADD_INFORMATION', user: data})
+
+            api.post("http://localhost:9090/clientes/add", {
+                googleId: logged.googleId,
+                nome: logged.name,
+                email: logged.email,
+                imagem: logged.imageUrl,
+                cpf: cpf,
+                enderecos: [{
+                    logradouro: address.address,
+                    numero: number,
+                    bairro: address.district,
+                    cep: cep,
+                    cidade: {
+                        nome: address.city,
+                        estado: {
+                            uf: address.state
+                        }
+                    }
+                }],
+                telefone: phone,
+                logado: true
+            }).then(response => {
+                console.log(response)
+            })
+
+            history.push(`/home/${match.params.tokenId}`)
         }
     }
 
