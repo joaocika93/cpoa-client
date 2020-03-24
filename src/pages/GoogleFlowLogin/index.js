@@ -6,7 +6,7 @@ import {
     Typography, AppBar, Toolbar, IconButton, Button
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import api from 'axios'
+import api from '../../services/api'
 import HomeIcon from '@material-ui/icons/Home';
 import LocationCityIcon from '@material-ui/icons/LocationCity';
 import PhoneIcon from '@material-ui/icons/Phone';
@@ -14,6 +14,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import EmailIcon from '@material-ui/icons/Email';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import InfoIcon from '@material-ui/icons/Info';
+import Axios from 'axios'
 // import validator from 'validator'
 
 
@@ -85,7 +86,7 @@ export default function GoogleFlow({match, history}) {
     }, [cep])
 
     function load() {
-        api.get(`https://apps.widenet.com.br/busca-cep/api/cep/${cep}.json`).then(response => {
+        Axios.get(`https://apps.widenet.com.br/busca-cep/api/cep/${cep}.json`).then(response => {
             const responseUser = {
                 response
             }
@@ -112,7 +113,7 @@ export default function GoogleFlow({match, history}) {
 
     const handleOnClickSalveContact = () => {
         console.log("entrou")
-        if (number === "" || phone === "" || cpf === "") {
+        if (number === null || phone === null || cpf === null) {
             console.log("Preencha todos os campos")
         } else {
             const data = {
@@ -123,7 +124,7 @@ export default function GoogleFlow({match, history}) {
             }
             dispatch({ type: 'ADD_INFORMATION', user: data})
 
-            api.post("clientes/add", {
+            api.post("/clientes/add", {
                 googleId: logged.googleId,
                 nome: logged.name,
                 email: logged.email,
