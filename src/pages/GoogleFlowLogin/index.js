@@ -123,7 +123,7 @@ export default function GoogleFlow({match, history}) {
             }
             dispatch({ type: 'ADD_INFORMATION', user: data})
 
-            api.post("http://localhost:9090/clientes/add", {
+            api.post("clientes/add", {
                 googleId: logged.googleId,
                 nome: logged.name,
                 email: logged.email,
