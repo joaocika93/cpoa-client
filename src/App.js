@@ -1,30 +1,14 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import Routes from './routes'
 import { Provider } from 'react-redux'
 import store from './store'
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-
 
 function App() {
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: light)');
-
-  const theme = useMemo(
-    () =>
-      createMuiTheme({
-        palette: {
-          type: prefersDarkMode ? 'dark' : 'light',
-        },
-      }),
-    [prefersDarkMode],
-  );
 
   return (
     <div className="App">
       <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <Routes></Routes>
-        </ThemeProvider>
+        <Routes></Routes>
       </Provider>
     </div>
   );
