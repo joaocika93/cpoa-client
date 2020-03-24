@@ -21,14 +21,14 @@ export default function ProductList() {
     }, [])
 
     function getAllProduct() {
-        api.get('/produtos/getAll').then(response => {
+        api.get('produtos/getAll').then(response => {
             setTotalProduct(response.data);
         })
     }
 
     function getList() {
         setTimeout(() => {
-            api.get(`/produtos/get?page=${page}&size=${productPage}`).then(response => {
+            api.get(`produtos/get?page=${page}&size=${productPage}`).then(response => {
                 setProduct([...product, ...response.data.content]);
                 setPage(page + 1)
             })
