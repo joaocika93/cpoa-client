@@ -89,7 +89,6 @@ export default function LoginPage({ history }) {
                                 onSuccess={responseGoogle}
                                 onFailure={responseGoogleFailure}
                                 cookiePolicy={'single_host_origin'}
-                                isSignedIn={true}
                             >
                             </GoogleLogin>
                             <FacebookLogin
