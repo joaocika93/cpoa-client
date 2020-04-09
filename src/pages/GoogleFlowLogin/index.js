@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import {
     Card, TextField, Container, List, ListItem,
     Divider, ListItemText, ListItemAvatar, Avatar,
@@ -63,7 +62,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-export default function GoogleFlow({match, history}) {
+export default function GoogleFlow({ match, history }) {
     const classes = useStyles()
     const [cep, setCep] = useState('')
     const [message, setMessage] = useState('')
@@ -72,8 +71,12 @@ export default function GoogleFlow({match, history}) {
     const [cpf, setCpf] = useState('')
     const [address, setAddress] = useState([])
     const [error, setError] = useState(true)
-    const logged = useSelector(state => state)
-    const dispatch = useDispatch()
+    const [logged] = useState({
+        googleId: sessionStorage.getItem('googleId'),
+        imageUrl: sessionStorage.getItem('imageUrl'),
+        email: sessionStorage.getItem('email'),
+        givenName: sessionStorage.getItem('givenName'),
+    })
 
     // const validatePhoneNumber = (phone) => {
     //     const isValidPhoneNumber = validator.isMobilePhone(phone, 'pt-BR')
@@ -110,23 +113,15 @@ export default function GoogleFlow({match, history}) {
             setCep(e.target.value)
         }
     }
-
+    console.log(logged)
     const handleOnClickSalveContact = () => {
-        console.log("entrou")
+        
         if (number === null || phone === null || cpf === null) {
             console.log("Preencha todos os campos")
         } else {
-            const data = {
-                phoneNumber: phone,
-                HomeNumber: number,
-                cpfNumber: cpf
-
-            }
-            dispatch({ type: 'ADD_INFORMATION', user: data})
-
             api.post("/clientes/add", {
                 googleId: logged.googleId,
-                nome: logged.name,
+                nome: logged.givenName,
                 email: logged.email,
                 imagem: logged.imageUrl,
                 cpf: cpf,
@@ -147,8 +142,8 @@ export default function GoogleFlow({match, history}) {
             }).then(response => {
                 console.log(response)
             })
-
-            history.push(`/home/${match.params.tokenId}`)
+            localStorage.setItem('logged', 'true')
+            history.push(`/home/`)
         }
     }
 

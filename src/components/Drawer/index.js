@@ -47,7 +47,7 @@ export default function SwipeableTemporaryDrawer() {
             onKeyDown={toggleDrawer(side, false)}
         >
             <List>
-                <Link href="/home">
+                <Link href={`/home/${localStorage.getItem('googleId')}`} >
                     <ListItem button key="Home" color="inherit">
                         <ListItemIcon><HomeIcon /></ListItemIcon>
                         <ListItemText primary="Inicio" />
@@ -86,6 +86,7 @@ export default function SwipeableTemporaryDrawer() {
                         <ListItemText primary="Configurações" />
                     </ListItem>
                 </Link>
+                <Divider/>
             </List>
         </div>
     );
@@ -93,7 +94,7 @@ export default function SwipeableTemporaryDrawer() {
 
     return (
         <div>
-            <Button onClick={toggleDrawer('left', true)}><MenuIcon /></Button>
+            <Button color="inherit" onClick={toggleDrawer('left', true)}><MenuIcon color="inherit" /></Button>
             <SwipeableDrawer
                 open={state.left}
                 onClose={toggleDrawer('left', false)}

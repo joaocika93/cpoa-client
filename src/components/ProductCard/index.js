@@ -1,9 +1,8 @@
 import React from 'react';
 
-import Link from '@material-ui/core/Link';
-import Button from '@material-ui/core/Button';
-import { Card, Container } from 'react-bootstrap'
 import api from '../../services/api'
+import { Button, Card, CardActionArea, CardMedia, CardContent, Typography, CardActions, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 export default function ProductCard(product) {
     function addCart(product) {
@@ -21,20 +20,40 @@ export default function ProductCard(product) {
     return (
         <div >
             <br></br>
-            <Container >
-                <Card >
-                    <Link href={`produto/${product.dados.id}`} >
-                        <Card.Img variant="top" src={product.dados.imagem} style={{ width: "200px"}} />
-                        <Card.Body>
-                            <Card.Title>{product.dados.nome}</Card.Title>
-                            <Card.Text>{product.dados.preco}</Card.Text>
-                            <Card.Text>{product.dados.descricao}</Card.Text>
-                        </Card.Body>
-                    </Link>
-                    <Button variant="outlined" color="primary" onClick={() => addCart(product.dados)}>Adcionar ao Carrinho</Button>
-                    <Button href='/carrinho' variant="contained" color="primary">Encomendar</Button>
-                </Card>
-            </Container>
+            <Card style={{ background: "#fafafa"}}>
+                <CardActionArea>
+                    <CardMedia style={{ height: "10em", width: "10em" }}
+                        component="img"
+                        image={product.dados.imagem}
+                    />
+                    <CardContent>
+                        <Typography color="primary" gutterBottom variant="h5" component="h2">
+                            {product.dados.nome}
+                        </Typography>
+                        <Typography color="secondary" gutterBottom variant="body1" component="h1">
+                            R$ {product.dados.preco}
+                        </Typography>
+                    </CardContent>
+                </CardActionArea>
+                <CardActions>
+                    <Button size="small" variant="contained" color="primary" onClick={() => addCart(product.dados)}>Adicionar ao Carrinho</Button>
+                    <Button size="small" href='/carrinho' variant="contained" color="secondary">Encomendar</Button>
+                </CardActions>
+                <ExpansionPanel style={{ background: "#fafafa" }} >
+                    <ExpansionPanelSummary
+                        expandIcon={<ExpandMoreIcon />}
+                    >
+                        <Typography color="primary" gutterBottom variant="body2" component="p">
+                            Descrição do Produto
+                        </Typography>
+                    </ExpansionPanelSummary>
+                    <ExpansionPanelDetails>
+                        <Typography style={{width:"20em", textAlign:"left"}} color="primary" gutterBottom variant="body2" component="p">
+                            {product.dados.descricao}
+                        </Typography>
+                    </ExpansionPanelDetails>
+                </ExpansionPanel>
+            </Card>
             <br></br>
         </div>
     );

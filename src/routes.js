@@ -19,7 +19,7 @@ function Routes() {
         <BrowserRouter>
             <Route path="/" exact component={LoginPage}></Route>
             <Route path="/policy" exact component={Policy}></Route>
-            <Route path="/home/:id" component={Home}></Route>
+            <Route path="/home" component={Home}></Route>
             <Route path="/carrinho" component={Cart}></Route>
             <Route path="/favoritos" component={Favorites}></Route>
             <Route path="/perfil" component={Profile}></Route>
@@ -27,8 +27,8 @@ function Routes() {
             <Route path="/configuracao" component={Settings}></Route>
             <Route path="/produto/:idProduct" component={ProductPage}></Route>
             <Route path="/buscaProduto/:busca" component={SearchPage}></Route>
-            <Route path="/googleflow/:tokenId" component={Googleflow}></Route>
-            <Route path="/facebookflow/:accessToken" component={Facebookflow}></Route>
+            <Route path="/googleflow" component={Googleflow}></Route>
+            <Route path="/facebookflow" component={Facebookflow}></Route>
         </BrowserRouter>
     );
 }
