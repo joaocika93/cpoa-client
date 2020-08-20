@@ -3,9 +3,9 @@
   "name": "Client Product Ordering App",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "image/icons8-react-native-48.png",
       "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "type": "image/png"
     }
   ],
   "start_url": "/",
