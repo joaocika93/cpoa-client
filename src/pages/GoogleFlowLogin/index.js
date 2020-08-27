@@ -138,7 +138,8 @@ export default function GoogleFlow({ match, history }) {
                     }
                 }],
                 telefone: phone,
-                logado: true
+                logado: true,
+                administrador: true
             }).then(response => {
                 console.log(response)
             })

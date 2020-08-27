@@ -59,7 +59,15 @@ export default function LoginPage({ history }) {
             if (response.data !== "") {
                 localStorage.setItem('logged', 'true')
                 localStorage.setItem('googleId', data.googleId)
-                history.push(`/home/${data.googleId}`)
+
+                if (data.administrador === true) {
+                    history.push(`/administrador`)
+                    console.log('Adm')
+                } else {
+                    history.push(`/home/${data.googleId}`)
+                    console.log('Client')
+                }
+
             } else {
                 localStorage.setItem('googleId', user.profileObj.googleId)
                 sessionStorage.setItem('googleId', user.profileObj.googleId)
@@ -73,14 +81,14 @@ export default function LoginPage({ history }) {
 
     const isLogged = () => {
         api.get(`/clientes/buscar/${localStorage.getItem('googleId')}`).then(response => {
-            if(response.data === ''){
+            if (response.data === '') {
                 setValidator(false)
-            }else{
+            } else {
                 setValidator(true)
             }
         })
 
-        if (localStorage.getItem('logged') === "true" && validator === true ) {
+        if (localStorage.getItem('logged') === "true" && validator === true) {
             history.push(`/home`)
         }
     }

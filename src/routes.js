@@ -1,18 +1,19 @@
-import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import React from 'react'
+import { BrowserRouter, Route } from 'react-router-dom'
 
-import Home from './pages/HomePage';
-import Cart from './pages/ShoppingCart';
-import Favorites from './pages/Favorites';
-import Notification from './pages/Notification';
-import Profile from './pages/Profile';
-import Settings from './pages/Settings';
+import Home from './pages/HomePage'
+import Cart from './pages/ShoppingCart'
+import Favorites from './pages/Favorites'
+import Notification from './pages/Notification'
+import Profile from './pages/Profile'
+import Settings from './pages/Settings'
 import ProductPage from './pages/ProductPage'
-import SearchPage from './pages/SearchPage';
+import SearchPage from './pages/SearchPage'
 import LoginPage from './pages/LoginPage'
 import Googleflow from './pages/GoogleFlowLogin'
 import Facebookflow from './pages/FacebookFlowLogin'
 import Policy from './pages/PrivacyPolicy'
+import Administrador from './pages/administradorPage'
 
 function Routes() {
     return (
@@ -29,8 +30,9 @@ function Routes() {
             <Route path="/buscaProduto/:busca" component={SearchPage}></Route>
             <Route path="/googleflow" component={Googleflow}></Route>
             <Route path="/facebookflow" component={Facebookflow}></Route>
+            <Route path="/administrador" component={Administrador}></Route>
         </BrowserRouter>
     );
 }
 
-export default Routes;
+export default Routes
