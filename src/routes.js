@@ -14,6 +14,12 @@ import Googleflow from './pages/GoogleFlowLogin'
 import Facebookflow from './pages/FacebookFlowLogin'
 import Policy from './pages/PrivacyPolicy'
 import Administrador from './pages/administradorPage'
+import AgendaEncomenda from './pages/administradorPage/AgendaEncomenda'
+import CadastrarProduto from './pages/administradorPage/CadastrarProduto'
+import ControleEstoque from './pages/administradorPage/ControleEstoque'
+import EditarProduto from './pages/administradorPage/EditarProduto'
+import ExcluirProduto from './pages/administradorPage/ExcluirProduto'
+import RelatorioEncomendas from './pages/administradorPage/RelatorioEncomendas'
 
 function Routes() {
     return (
@@ -31,6 +37,12 @@ function Routes() {
             <Route path="/googleflow" component={Googleflow}></Route>
             <Route path="/facebookflow" component={Facebookflow}></Route>
             <Route path="/administrador" component={Administrador}></Route>
+            <Route path="/agenda" component={AgendaEncomenda}></Route>
+            <Route path="/cadastrarProduto" component={CadastrarProduto}></Route>
+            <Route path="/controleEstoque" component={ControleEstoque}></Route>
+            <Route path="/editarProduto" component={EditarProduto}></Route>
+            <Route path="/excluirProduto" component={ExcluirProduto}></Route>
+            <Route path="/relatorioEncomendas" component={RelatorioEncomendas}></Route>
         </BrowserRouter>
     );
 }

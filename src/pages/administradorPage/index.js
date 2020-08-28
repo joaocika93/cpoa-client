@@ -72,6 +72,7 @@ export default function Profile() {
                 <br></br>
                 <Grid container spacing={2}>
                     <Grid item >
+                        <a href='/cadastrarProduto'>
                         <Button className={classes.cadastro} color='primary' variant='contained'>
                             <Grid container direction='row' justify='center' spacing={2}>
                                 <Grid item>
@@ -82,6 +83,7 @@ export default function Profile() {
                                 </Grid>
                             </Grid>
                         </Button>
+                        </a>
                     </Grid>
                     <Grid item >
                         <Button className={classes.relatorio} color='primary' variant='contained'>
