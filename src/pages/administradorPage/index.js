@@ -34,16 +34,17 @@ const useStyle = makeStyles({
         paddingBottom: theme.spacing(2),
     },
     grid: {
+        justifyContent: 'center'
     },
     cadastro: {
-        marginLeft: 27,
         height: 150,
         width: 150,
     },
     relatorio: {
         height: 150,
         width: 150,
-    }
+    },
+    
 
 })
 
@@ -70,19 +71,19 @@ export default function Profile() {
                 <br></br>
                 <br></br>
                 <br></br>
-                <Grid container spacing={2}>
+                <Grid className={classes.grid} container spacing={2}>
                     <Grid item >
                         <a href='/cadastrarProduto'>
-                        <Button className={classes.cadastro} color='primary' variant='contained'>
-                            <Grid container direction='row' justify='center' spacing={2}>
-                                <Grid item>
-                                    <AddCircleIcon />
+                            <Button className={classes.cadastro} color='primary' variant='contained'>
+                                <Grid container direction='row' justify='center' spacing={2}>
+                                    <Grid item>
+                                        <AddCircleIcon />
+                                    </Grid>
+                                    <Grid item>
+                                        Cadastar Produto
                                 </Grid>
-                                <Grid item>
-                                    Cadastar Produto
                                 </Grid>
-                            </Grid>
-                        </Button>
+                            </Button>
                         </a>
                     </Grid>
                     <Grid item >
@@ -99,7 +100,7 @@ export default function Profile() {
                     </Grid>
                 </Grid>
                 <br></br>
-                <Grid container spacing={2}>
+                <Grid className={classes.grid} container spacing={2}>
                     <Grid item >
                         <Button className={classes.cadastro} color='primary' variant='contained'>
                             <Grid container direction='row' justify='center' spacing={2}>
@@ -126,7 +127,7 @@ export default function Profile() {
                     </Grid>
                 </Grid>
                 <br></br>
-                <Grid container spacing={2}>
+                <Grid className={classes.grid} container spacing={2}>
                     <Grid item >
                         <Button className={classes.cadastro} color='primary' variant='contained'>
                             <Grid container direction='row' justify='center' spacing={2}>
