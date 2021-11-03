@@ -34,7 +34,7 @@
     "redux": "^4.0.5",
     "side-menu": "^0.4.2",
     "use-dark-mode": "^2.0.0",
-    "validator": "^12.2.0"
+    "validator": "^13.7.0"
   },
   "scripts": {
     "start": "react-scripts start",
