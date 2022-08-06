@@ -16,7 +16,7 @@
     "devicons": "^1.8.0",
     "material-login": "0.0.2",
     "navbar-react": "^1.0.4",
-    "otp-generator": "^1.1.0",
+    "otp-generator": "^3.0.0",
     "react": "^16.13.0",
     "react-bootstrap": "^1.0.0-beta.17",
     "react-device-detect": "^1.11.14",
